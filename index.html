@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html>                       
 <html>
+
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
@@ -237,7 +238,7 @@ header a:hover {
 #joystick-stick {
     width: 90px;
     height: 90px;
-    background-color: #ebd300; /* สีของปุ่มจอย (สีแดงตามสไตล์คุณ) */
+    background-color: #000000; /* สีของปุ่มจอย (สีแดงตามสไตล์คุณ) */
     border-radius: 50%;
     box-shadow: 0 40px 100px rgba(34, 30, 30, 0.5);
     cursor: grab;
@@ -352,6 +353,47 @@ header a:hover {
     background-color: #0b4bc2;
     transform: translateY(-2px); /* ปุ่มลอยขึ้นเล็กน้อย */
     box-shadow: 0 6px #000;
+}
+/* สำหรับหน้าจอมือถือ */
+@media (max-width: 600px) {
+    /* 1. ปรับ Header ให้เรียงตัวกันสวยๆ ไม่ซ้อนกัน */
+    header {
+        flex-direction: column; /* เปลี่ยนจากเรียงแนวนอนเป็นแนวตั้ง */
+        padding: 10px;
+        height: auto;
+    }
+
+    .header-menu {
+        display: flex;
+        flex-wrap: wrap; /* ให้ปุ่มตัดลงมาบรรทัดใหม่ได้ถ้าที่ว่างไม่พอ */
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    /* 2. ปรับขนาดตัวหนังสือในเมนูให้เล็กลงนิดนึงเพื่อให้พอดีจอ */
+    .header-menu a, .header-menu button {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    /* 3. ปรับตำแหน่งจอยสติ๊ก */
+    #joystick-container {
+        width: 100px;  /* ลดขนาดลงนิดนึงเพื่อให้ไม่บังหน้าจอเกินไป */
+        height: 100px;
+        bottom: 30px;  /* ขยับให้ห่างจากขอบจอนิดหน่อย */
+    }
+
+    #joystick-stick {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* 4. ปรับปุ่มเปิดกล้องให้พอดี */
+    #camera-controls {
+        top: 25%; /* ขยับขึ้นไปข้างบนอีกนิดเพื่อไม่ให้ทับจอยสติ๊ก */
+        width: 90%; /* ให้ความกว้างเกือบเต็มจอ */
+    }
 }
 </style>
 
