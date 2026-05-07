@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Website</title>
+    
+</head>
+<body>
+
+    <header>
+        <a href="http://127.0.0.1:5500/index.html"><img src="Preechanusas.jpg" alt="Logo" class="Logo"></a> 
+        <button class="btn-steps">ขั้นตอนการทำ</button>
+
+        <button class="btn-setting">วิธีใช้งาน</button>
+        <button class="btn-credit">ผู้จัดทำ</button>
+        
+        <button id="connect-btn" onclick="onConnectClick()">
+เชื่อมต่อ
+</button>
+        
+    <hr>
+    </header>
+
+    
+    <div class="Control">
+    <main>
+    <div id="joystick-container">
+        <div id="joystick-stick"></div>
+    </div>
+    
+</main>
+
+
+<style>
+    
+    body {
+        background-color: rgb(255, 255, 255);
+        font-family: 'Kanit', sans-serif;
+    }
+    h1 {
+        color: brown;
+        text-align: center;
+        margin: auto;
+        
+        
+    }
+    ul {
+        color: red;
+    }
+    p {
+        color: brown;
+        
+    }
+   span{
+    font-size: 20px;
+    color: #a52a2a;
+    margin-left: 3%;
+    display: flexbox;
+    
+    
+   }
+   span:hover {
+    transform: rotateX('10deg');
+    transition: 0.6sec;
+   }
+        
+        
+    
+    hr {
+        color: brown;
+    }
+   .Logo {
+    width: 80px;
+    height: 80px;
+    margin-top: 20px;
+
+   }
+        
+    
+    .profile-card { background-color: #ffffff; /* สีเทาเข้มเกือบดำ ให้ดูแพง */
+    
+    /* --- หัวใจของวันนี้ --- */
+    padding: 40px;           /* เพิ่มช่องว่างข้างในกล่องให้เนื้อหาดูไม่หายใจไม่ออก */
+    margin: 50px auto;       /* ห่างจากขอบบน 50px และ auto คือจัดกลางซ้ายขวา */
+    border: 3px solid brown; /* ใส่เส้นขอบสีน้ำตาลที่ออโต้ชอบ */
+    border-radius: 20px;     /* ทำมุมกล่องให้มนดูทันสมัย */
+    
+    width: 80%;              /* กำหนดความกว้างกล่อง */
+    max-width: 600px;        /* ล็อคความกว้างสูงสุดไว้ ไม่ให้บานเต็มจอคอม */
+    
+    /* แถม: ใส่เงาให้กล่องดูลอยออกมา */
+    box-shadow: 0 10px 30px rgba(250, 250, 250, 0.5);
+    transition: all 0.5s ease-out;
+    }
+ ul{
+    color: black;
+    font-size: 25px;
+    
+ }
+ .profile-card:hover {
+    border-color: red;
+    transform: translateY(10px);
+    transition: 0.3s;
+    
+ }
+ .special-hazard:hover{
+    transform: rotate(5deg) scale(1.5);
+    transition: 0.3s;
+    box-shadow: 0 0 5px 5px rgba(250, 0, 0, 0.9);
+    transform: scale(1.1) rotate(5deg);
+ }
+.special-hazard {
+    transition: all 0.2s ease-out;
+    width: 70px;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(250, 250, 250, 0.5);
+    border: #b61414;
+    box-shadow: 0 0 15px 5px rgba(250, 0, 0, 0.6);
+    transition: all 0.3s ease;
+}
+@media (max-width: 600px)
+ {
+ .profile-card {
+        width: 95%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .special-hazard {
+        width: 80px;
+    }
+}
+.js-btn {
+    font-size: 15px;
+    border: #b61414;
+    font-family: Kanit;
+    box-shadow: 0 0 5px 5px rgba(250, 0, 0, 0.6);
+}
+.js-btn:hover{
+    background-color: #a52a2a;
+    transform: scale(1.05);
+}
+.modal-overlay {
+    display: none; /* ปิดไว้ก่อน */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background : rgba(0, 0, 0, 0.8);  /* พื้นหลังมืดจางๆ */
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    
+}
+
+.modal-content {
+    background: #000000;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid brown;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    box-shadow: 0 0 200px rgba(165, 42, 42, 0.5);
+}
+
+#nameInput {
+    padding: 10px;
+    width: 80%;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #333;
+    color: white;
+}
+.modal-buttons button {
+    font-family: 'Kanit', sans-serif;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    /* ใส่สไตล์อื่นๆ ที่ออโต้ต้องการ */
+}
+#passwordInput {
+    padding: 10px;
+    width: 80%;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #333;
+    color: white;
+}
+header {
+    display: flex;         /* จัดโลโก้และเมนูให้อยู่แถวเดียวกัน */
+    align-items: center;   /* จัดให้อยู่กึ่งกลางแนวตั้งขนานกัน */
+    background-color: white; 
+    padding: 10px 10px;
+}
+
+header img {
+    height: 50px;         /* ปรับขนาดโลโก้ตามใจชอบ */
+    margin-right: 20px;   /* เพิ่มระยะห่างระหว่างโลโก้กับเมนูตัวแรก */
+}
+
+
+
+
+header span {
+    color: black;          /* ปรับสีตามต้องการ */
+    font-size: 25px;       /* ปรับขนาดตัวอักษรให้พอดี */
+    padding-left: 15px;
+}
+
+header a:hover {
+    transform: scale(1.1);
+    color: #ff0000;
+}
+#joystick-container {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 50%;
+    border: 2px solid #000000;
+    
+    /* จัดให้อยู่ตรงกลางหน้าจอ */
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* เลื่อนกลับมาครึ่งหนึ่งของขนาดตัวเองเพื่อให้กลางเป๊ะ */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    z-index: 999;
+}
+
+#joystick-stick {
+    width: 90px;
+    height: 90px;
+    background-color: #ebd300; /* สีของปุ่มจอย (สีแดงตามสไตล์คุณ) */
+    border-radius: 50%;
+    box-shadow: 0 40px 100px rgba(34, 30, 30, 0.5);
+    cursor: grab;
+    transition: transform 0.1s ease-out; /* ให้จอยเด้งกลับนุ่มนวล */
+
+}
+/* สไตล์ของปุ่ม Connect */
+#connect-btn {
+    margin-left: 30px;
+    font-family: 'Kanit', sans-serif;
+    padding: 10px 25px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    background-color: #0066ff; /* สีพื้นหลังเริ่มต้น */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* ทำให้เวลาเปลี่ยนสีดูสมูท */
+    box-shadow: 0 4px #000; /* เพิ่มมิติให้ปุ่มดูหนาขึ้น */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bolder;
+}
+
+/* เมื่อเอาเมาส์ไปชี้ (Hover) */
+#connect-btn:hover {
+    background-color: #0b4bc2;
+    transform: translateY(-2px); /* ปุ่มลอยขึ้นเล็กน้อย */
+    box-shadow: 0 6px #000;
+}
+
+/* เมื่อกดปุ่ม (Active) */
+#connect-btn:active {
+    transform: translateY(4px); /* ปุ่มยุบลงเหมือนกดจริง */
+    background-color: #000000;
+    box-shadow: 0 0 #ff0000;
+}
+
+/* ตกแต่งเมื่อเชื่อมต่อสำเร็จ (ตัวเลือกเสริม) */
+.connected {
+    background-color: #0066ff !important; /* เปลี่ยนเป็นสีเขียว */
+    box-shadow: 0 4px #27ae60 !important;
+
+}
+.btn-steps {
+    margin-left: 30px;
+    font-family: 'Kanit', sans-serif;
+    padding: 10px 25px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    background-color: #0066ff; /* สีพื้นหลังเริ่มต้น */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* ทำให้เวลาเปลี่ยนสีดูสมูท */
+    box-shadow: 0 4px #000; /* เพิ่มมิติให้ปุ่มดูหนาขึ้น */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bolder;
+}
+.btn-steps:hover {
+    background-color: #0b4bc2;
+    transform: translateY(-2px); /* ปุ่มลอยขึ้นเล็กน้อย */
+    box-shadow: 0 6px #000;
+}
+.btn-setting {
+    margin-left: 30px;
+    font-family: 'Kanit', sans-serif;
+    padding: 10px 25px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    background-color: #0066ff; /* สีพื้นหลังเริ่มต้น */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* ทำให้เวลาเปลี่ยนสีดูสมูท */
+    box-shadow: 0 4px #000; /* เพิ่มมิติให้ปุ่มดูหนาขึ้น */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bolder;
+}
+.btn-setting:hover {
+    background-color: #0b4bc2;
+    transform: translateY(-2px); /* ปุ่มลอยขึ้นเล็กน้อย */
+    box-shadow: 0 6px #000;
+}
+.btn-credit {
+    margin-left: 30px;
+    font-family: 'Kanit', sans-serif;
+    padding: 10px 25px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    background-color: #0066ff; /* สีพื้นหลังเริ่มต้น */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* ทำให้เวลาเปลี่ยนสีดูสมูท */
+    box-shadow: 0 4px #000; /* เพิ่มมิติให้ปุ่มดูหนาขึ้น */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bolder;
+}
+.btn-credit:hover {
+    background-color: #0b4bc2;
+    transform: translateY(-2px); /* ปุ่มลอยขึ้นเล็กน้อย */
+    box-shadow: 0 6px #000;
+}
+</style>
+
+<script>
+    const container = document.getElementById('joystick-container');
+const stick = document.getElementById('joystick-stick');
+
+let active = false;
+let centerX, centerY;
+
+// เริ่มต้นตำแหน่งกลาง
+const updateCenter = () => {
+    const rect = container.getBoundingClientRect();
+    centerX = rect.left + rect.width / 2;
+    centerY = rect.top + rect.height / 2;
+};
+
+window.addEventListener('resize', updateCenter);
+updateCenter();
+
+const handleMove = (e) => {
+    if (!active) return;
+    
+    // รองรับทั้งเมาส์และนิ้วสัมผัส
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+    let deltaX = clientX - centerX;
+    let deltaY = clientY - centerY;
+    
+    // จำกัดไม่ให้จอยหลุดออกนอกวงกลมฐาน
+    const distance = Math.min(Math.sqrt(deltaX**2 + deltaY**2), 50);
+    const angle = Math.atan2(deltaY, deltaX);
+    
+    const moveX = Math.cos(angle) * distance;
+    const moveY = Math.sin(angle) * distance;
+
+    stick.style.transform = `translate(${moveX}px, ${moveY}px)`;
+};
+
+const handleStart = () => { active = true; stick.style.cursor = 'grabbing'; };
+const handleEnd = () => { 
+    active = false; 
+    stick.style.transform = 'translate(0, 0)'; // เด้งกลับที่เดิม
+    stick.style.cursor = 'grab';
+};
+
+// Event Listeners สำหรับเมาส์
+container.addEventListener('mousedown', handleStart);
+window.addEventListener('mousemove', handleMove);
+window.addEventListener('mouseup', handleEnd);
+
+// Event Listeners สำหรับมือถือ (Touch)
+container.addEventListener('touchstart', handleStart);
+window.addEventListener('touchmove', handleMove);
+window.addEventListener('touchend', handleEnd);
+async function onConnectClick() {
+  try {
+    console.log('กำลังค้นหาอุปกรณ์...');
+    
+    // 1. ขออนุญาตเข้าถึงอุปกรณ์ Bluetooth
+    const device = await navigator.bluetooth.requestDevice({
+      // acceptAllDevices: true // ใช้บรรทัดนี้ถ้าต้องการหาทุกอย่าง
+      // หรือระบุ Filter เฉพาะอุปกรณ์ของคุณ (เช่น หุ่นยนต์ที่สร้างเอง)
+      acceptAllDevices: true, 
+      optionalServices: ['battery_service'] // ระบุ Service ที่ต้องการคุยด้วย
+    });
+
+    // 2. เชื่อมต่อกับ Server (GATT)
+    const server = await device.gatt.connect();
+    
+    // 3. แสดงชื่ออุปกรณ์บนหน้าเว็บ
+    document.getElementById('device-name').innerText = device.name;
+    
+    alert('เชื่อมต่อสำเร็จกับ: ' + device.name);
+    
+  } catch (error) {
+    console.log('การเชื่อมต่อล้มเหลว: ' + error);
+    alert('ไม่สามารถเชื่อมต่อได้: ' + error);
+  }
+}
+
+
+</script>
+</body>
+</html>
